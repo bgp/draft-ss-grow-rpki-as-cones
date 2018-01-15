@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!ENTITY RFC2234 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2234.xml">
+<!ENTITY RFC2629 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2629.xml">
+<!ENTITY RFC4234 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4234.xml">
+<!ENTITY nbsp    "&#160;">
+]>
+
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+
+<?rfc strict="yes" ?>
+<?rfc comments="no" ?>
+<?rfc inline="no" ?>
+<?rfc editing="no" ?>
+<?rfc toc="yes" ?>
+<?rfc tocompact="yes" ?>
+<?rfc tocdepth="3" ?>
+<?rfc symrefs="no" ?>
+<?rfc sortrefs="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc subcompact="no" ?>
+
+<rfc category="info" 
+	ipr="trust200902" 
+	docName="draft-ss-sidrops-rpki-as-cones" 
+	submissionType="IETF">
+	
+	<front>
+		
+		<title abbrev="RPKI AS Cones">RPKI AS Cones: defining Autonomous System adjacencies in RPKI in order to facilitate BGP filtering</title>
+
+		<author fullname="Job Snijders" initials="J." surname="Snijders" role="editor">
+			<organization abbrev="NTT">NTT Communications</organization>
+
+			<address>
+				<postal>
+					<street>Theodorus Majofskistraat 100</street>
+					<code>1065 SZ</code>
+					<city>Amsterdam</city>
+					<country>The Netherlands</country>
+				</postal>
+				<email>job@ntt.net</email>
+			</address>
+		</author>
+		
+		<author fullname="Massimiliano Stucchi" initials="M." surname="Stucchi" role="editor">
+			<organization>RIPE NCC</organization>
+
+			<address>
+				<postal>
+					<street>Stationsplein, 11</street>
+					<code>1012 AB</code>
+					<city>Amsterdam</city>
+					<country>The Netherlands</country>
+				</postal>
+
+				<email>mstucchi@ripe.net</email>
+			</address>
+		</author>
+
+		<date year="2018" month="January" />
+		<area>Routing</area>
+   
+		<keyword>BGP</keyword>
+		<keyword>RPKI</keyword>
+
+		<abstract>
+			<t>
+				This document describes a way to define groups of Autonomous System numbers in RPKI, also known as AS Cones. They provide a mechanism to be used by operators for filtering purposes using BGP-4.  
+			</t>
+		</abstract>
+		<note title="Requirements Language">
+			<t>
+				The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in
+				<xref target="RFC2119"/>
+				.
+			</t>
+		</note>
+	</front>
+	<middle>
+		<section title="Introduction">
+			<t>
+				First section
+			</t>
+		</section>
+		<section title="Security Considerations">
+			<t>
+				This document does not change any underlying security issues associated with any other BGP Communities mechanism. Specifically, an AS relying on the BGP Large Communities attribute carried in BGP must have trust in every other AS in the path, as any intermediate Autonomous System in the path may have added, deleted, or altered the BGP Large Communities attribute. Specifying the mechanism to provide such trust is beyond the scope of this document.
+			</t>
+			<t>
+				BGP Large Communities do not protect the integrity of each community value. Operators should be aware that it is possible for a BGP speaker to alter BGP Large Community Attribute values in a BGP Update Message. Protecting the integrity of the transitive handling of BGP Large Community attributes in a manner consistent with the intent of expressed BGP routing policies falls within the broader scope of securing BGP, and is not specifically addressed here.
+			</t>
+			<t>
+				Network administrators should note the recommendations in Section 11 of BGP Operations and Security
+				<xref target="RFC7454"/>
+				.
+			</t>
+		</section>
+		<section title="IANA Considerations">
+			<t>
+				This memo includes no request to IANA.
+			</t>
+		</section>
+		<section title="Contributors">
+			<t>
+				The following people contributed significantly to the content of the document:
+			</t>
+		</section>
+		<section title="Acknowledgments">
+			<t>
+				The authors would like to thank ...
+			</t>
+		</section>
+	</middle>
+	<back>
+		<references title="Normative References">
+			<?rfc include="reference.RFC.2119"?>
+			<?rfc include="reference.RFC.4271"?>
+			<?rfc include="reference.RFC.7606"?>
+		</references>
+		<references title="Informative References">
+			<?rfc include="reference.RFC.1997"?>
+			<?rfc include="reference.RFC.4360"?>
+			<?rfc include="reference.RFC.6793"?>
+			<?rfc include="reference.RFC.7300"?>
+			<?rfc include="reference.RFC.7454"?>
+			<?rfc include="reference.RFC.7607"?>
+		</references>
+	</back>
+</rfc>
