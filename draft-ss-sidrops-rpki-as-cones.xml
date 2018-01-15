@@ -20,14 +20,16 @@
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="info" 
-	ipr="trust200902" 
-	docName="draft-ss-sidrops-rpki-as-cones" 
+<rfc category="info"
+	ipr="trust200902"
+	docName="draft-ss-sidrops-rpki-as-cones"
 	submissionType="IETF">
 	
 	<front>
 		
-		<title abbrev="RPKI AS Cones">RPKI AS Cones: defining Autonomous System adjacencies in RPKI in order to facilitate BGP filtering</title>
+        <title abbrev="RPKI AS Cones">
+            RPKI Autonomous Systems Cones: A Profile To Define Sets of Autonomous Systems Numbers To Facilitate BGP Filtering
+        </title>
 
 		<author fullname="Job Snijders" initials="J." surname="Snijders" role="editor">
 			<organization abbrev="NTT">NTT Communications</organization>
@@ -58,15 +60,16 @@
 			</address>
 		</author>
 
-		<date year="2018" month="January" />
+        <date />
 		<area>Routing</area>
-   
+
 		<keyword>BGP</keyword>
 		<keyword>RPKI</keyword>
 
 		<abstract>
 			<t>
-				This document describes a way to define groups of Autonomous System numbers in RPKI, also known as AS Cones. They provide a mechanism to be used by operators for filtering purposes using BGP-4.  
+                This document describes a way to define groups of Autonomous System numbers in RPKI, also known as AS Cones.
+                They provide a mechanism to be used by operators for filtering purposes using BGP-4.
 			</t>
 		</abstract>
 		<note title="Requirements Language">
@@ -85,10 +88,14 @@
 		</section>
 		<section title="Security Considerations">
 			<t>
-				This document does not change any underlying security issues associated with any other BGP Communities mechanism. Specifically, an AS relying on the BGP Large Communities attribute carried in BGP must have trust in every other AS in the path, as any intermediate Autonomous System in the path may have added, deleted, or altered the BGP Large Communities attribute. Specifying the mechanism to provide such trust is beyond the scope of this document.
+                This document does not change any underlying security issues associated with any other BGP Communities mechanism.
+                Specifically, an AS relying on the BGP Large Communities attribute carried in BGP must have trust in every other AS in the path, as any intermediate Autonomous System in the path may have added, deleted, or altered the BGP Large Communities attribute.
+                Specifying the mechanism to provide such trust is beyond the scope of this document.
 			</t>
 			<t>
-				BGP Large Communities do not protect the integrity of each community value. Operators should be aware that it is possible for a BGP speaker to alter BGP Large Community Attribute values in a BGP Update Message. Protecting the integrity of the transitive handling of BGP Large Community attributes in a manner consistent with the intent of expressed BGP routing policies falls within the broader scope of securing BGP, and is not specifically addressed here.
+                BGP Large Communities do not protect the integrity of each community value.
+                Operators should be aware that it is possible for a BGP speaker to alter BGP Large Community Attribute values in a BGP Update Message.
+                Protecting the integrity of the transitive handling of BGP Large Community attributes in a manner consistent with the intent of expressed BGP routing policies falls within the broader scope of securing BGP, and is not specifically addressed here.
 			</t>
 			<t>
 				Network administrators should note the recommendations in Section 11 of BGP Operations and Security
