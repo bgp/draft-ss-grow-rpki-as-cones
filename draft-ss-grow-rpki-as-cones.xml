@@ -87,19 +87,7 @@
 		</section>
 		<section title="Security Considerations">
 			<t>
-                This document does not change any underlying security issues associated with any other BGP Communities mechanism.
-                Specifically, an AS relying on the BGP Large Communities attribute carried in BGP must have trust in every other AS in the path, as any intermediate Autonomous System in the path may have added, deleted, or altered the BGP Large Communities attribute.
-                Specifying the mechanism to provide such trust is beyond the scope of this document.
-			</t>
-			<t>
-                BGP Large Communities do not protect the integrity of each community value.
-                Operators should be aware that it is possible for a BGP speaker to alter BGP Large Community Attribute values in a BGP Update Message.
-                Protecting the integrity of the transitive handling of BGP Large Community attributes in a manner consistent with the intent of expressed BGP routing policies falls within the broader scope of securing BGP, and is not specifically addressed here.
-			</t>
-			<t>
-				Network administrators should note the recommendations in Section 11 of BGP Operations and Security
-				<xref target="RFC7454"/>
-				.
+				TBW
 			</t>
 		</section>
 		<section title="IANA Considerations">
