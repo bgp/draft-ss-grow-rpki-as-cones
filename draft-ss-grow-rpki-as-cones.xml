@@ -15,7 +15,7 @@
 <?rfc toc="yes" ?>
 <?rfc tocompact="yes" ?>
 <?rfc tocdepth="3" ?>
-<?rfc symrefs="no" ?>
+<?rfc symrefs="yes" ?>
 <?rfc sortrefs="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
@@ -26,10 +26,10 @@
 	submissionType="IETF">
 	
 	<front>
-		
-        <title abbrev="RPKI AS Cones">
-            RPKI Autonomous Systems Cones: A Profile To Define Sets of Autonomous Systems Numbers To Facilitate BGP Filtering
-        </title>
+
+		<title abbrev="RPKI AS Cones">
+			RPKI Autonomous Systems Cones: A Profile To Define Sets of Autonomous Systems Numbers To Facilitate BGP Filtering
+		</title>
 
 		<author fullname="Job Snijders" initials="J." surname="Snijders" role="editor">
 			<organization abbrev="NTT">NTT Communications</organization>
@@ -44,7 +44,7 @@
 				<email>job@ntt.net</email>
 			</address>
 		</author>
-		
+
 		<author fullname="Massimiliano Stucchi" initials="M." surname="Stucchi" role="editor">
 			<organization>RIPE NCC</organization>
 
@@ -69,21 +69,35 @@
 
 		<abstract>
 			<t>
-                This document describes a way to define groups of Autonomous System numbers in RPKI, also known as AS Cones.
-                They provide a mechanism to be used by operators for filtering purposes using BGP-4.
+				This document describes a way to define groups of Autonomous System numbers in RPKI  <xref target="RFC6480" />, also known as AS-Cones.
+				They provide a mechanism to be used by operators for filtering purposes using BGP-4 <xref target="RFC4271" />.
 			</t>
 		</abstract>
 		<note title="Requirements Language">
-            <t>
-                The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <xref target="RFC2119" /> <xref target="RFC8174" /> when, and only when, they appear in all capitals, as shown here.
+			<t>
+				The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <xref target="RFC2119" /> <xref target="RFC8174" /> when, and only when, they appear in all capitals, as shown here.
 			</t>
 		</note>
 	</front>
 	<middle>
 		<section title="Introduction">
 			<t>
-				First section
+				The main goal of the RPKI system <xref target="RFC6480" /> is to provide additional security to the global routing system.
+				This is achieved through the use of information stored in Route Object Authorisation (ROAs), which describe the prefixes originated by ASNs.
+				There is however no way for an operator to assert the routes for networks adjacent to it, making it difficult to use the information carried by RPKI to create meaningful BGP-4 filters.
+				This memo introduces a new attestation object, called an AS-Cone.
+				An AS-Cone is a digitally signed object with the goal to enable operators to define a set of customers that can be found as "right adjacencies", or transit customer networks, facilitating the construction of prefix filters for a given ASn, and making routing more secure.
 			</t>
+		</section>
+		<section title="Format of an AS-Cone object">
+		</section>
+		<section title="AS-Cone objects naming conventions">
+			<!-- mention autodiscovery -->
+
+		</section>
+		<section title="Validating an AS-Cone">
+		</section>
+		<section title="Publication of AS-Cones as IRR objects">
 		</section>
 		<section title="Security Considerations">
 			<t>
@@ -109,17 +123,11 @@
 	<back>
 		<references title="Normative References">
 			<?rfc include="reference.RFC.2119"?>
-			<?rfc include="reference.RFC.8174"?>
 			<?rfc include="reference.RFC.4271"?>
-			<?rfc include="reference.RFC.7606"?>
+			<?rfc include="reference.RFC.8174"?>
 		</references>
 		<references title="Informative References">
-			<?rfc include="reference.RFC.1997"?>
-			<?rfc include="reference.RFC.4360"?>
-			<?rfc include="reference.RFC.6793"?>
-			<?rfc include="reference.RFC.7300"?>
-			<?rfc include="reference.RFC.7454"?>
-			<?rfc include="reference.RFC.7607"?>
+			<?rfc include="reference.RFC.6480"?>
 		</references>
 	</back>
 </rfc>
