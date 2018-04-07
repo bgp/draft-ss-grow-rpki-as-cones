@@ -89,7 +89,13 @@
 				An AS-Cone is a digitally signed object with the goal to enable operators to define a set of customers that can be found as "right adjacencies", or transit customer networks, facilitating the construction of prefix filters for a given ASn, and making routing more secure.
 			</t>
 		</section>
-		<section title="Format of an AS-Cone object">
+		<section title="Format of AS-Cone objects">
+				<section title="Policy definition">
+				</section>
+
+				<section title="AS-Cone definition">
+				</section>
+
 		</section>
 		<section title="AS-Cone objects naming conventions">
 			<!-- mention autodiscovery -->
