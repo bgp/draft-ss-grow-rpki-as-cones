@@ -69,7 +69,7 @@
 
 		<abstract>
 			<t>
-				This document describes a way to define groups of Autonomous System numbers in RPKI  <xref target="RFC6480" />, also known as AS-Cones.
+				This document describes a way to define groups of Autonomous System numbers in RPKI <xref target="RFC6480" />, also known as AS-Cones.
 				They provide a mechanism to be used by operators for filtering purposes using BGP-4 <xref target="RFC4271" />.
 			</t>
 		</abstract>
@@ -82,7 +82,7 @@
 	<middle>
 		<section title="Introduction">
 			<t>
-				The main goal of the RPKI system <xref target="RFC6480" /> is to provide additional security to the global routing system.
+				The main goal of the RPKI system <xref target="RFC6480" /> is to provide additional security for the global routing system.
 				This is achieved through the use of information stored in Route Object Authorisation (ROAs), which describe the prefixes originated by ASNs.
 				There is however no way for an operator to assert the routes for networks adjacent to it, making it difficult to use the information carried by RPKI to create meaningful BGP-4 filters.
 				This memo introduces a new attestation object, called an AS-Cone.
@@ -90,7 +90,53 @@
 			</t>
 		</section>
 		<section title="Format of AS-Cone objects">
+			<t>
+				AS-Cones are composed of two types of distinct objects:
+			</t>
+			<t><list style="symbols">
+					<t>Policy definitions; and</t>
+					<t>The AS-Cones themselves.</t>
+				</list>
+			</t>
+
+			<t>
+				These objects are stored in ASN.1 format (Reference to ASN.1) and are digitally signed according to the same rules and conventions applied for RPKI ROA Objects (as per RFC???).
+			</t>
+
 				<section title="Policy definition">
+
+					<t>
+						A policy definition contains a list of all the upstream and peering relationships for a given Autonomous System.
+						For each relationship, a different AS-Cone is referenced to indicate which BGP networks will be announced to the other end of the relationship.
+					</t>
+
+					<t>
+						The default behaviour for a neighbor, if the relationship is not explicitly described in the policy, is to only accept the networks originated by the ASN.  This means that a stub ASN does not have to set up any AS-Cone nor any description in the policies.
+					</t>
+
+					<t>Only one AS-Cone can be supplied for a given relationship.  If more than one AS-Cone needs to be announced, then it is required to create a third AS-Cone that includes those two. 
+
+					<section title="ASN.1 format of a Policy Definition">
+						<figure title="ASN.1 format of a Policy definition">
+							<artwork><![CDATA[
+ASNPolicy DEFINITIONS ::=
+BEGIN
+	Neighbors ::= SEQUENCE OF Neighbor
+
+	Neighbor ::= SEQUENCE 
+	{
+		ASN INTEGER (1..4294967296),
+		ASCone	VisibleString
+	}
+
+	Version ::= INTEGER
+	LastModified ::= GeneralizedTime
+	Created ::= GeneralizedTime
+END
+								]]>
+							</artwork>
+						</figure>
+					</section>
 				</section>
 
 				<section title="AS-Cone definition">
