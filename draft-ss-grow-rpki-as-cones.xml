@@ -131,20 +131,20 @@
 				<section title="ASN.1 format of a Policy Definition object">
 					<figure title="ASN.1 format of a Policy definition object">
 						<artwork><![CDATA[
-							ASNPolicy DEFINITIONS ::=
-							BEGIN
-							Neighbors ::= SEQUENCE OF Neighbor
+ASNPolicy DEFINITIONS ::=
+BEGIN
+Neighbors ::= SEQUENCE OF Neighbor
 
-							Neighbor ::= SEQUENCE 
-							{
-							ASN INTEGER (1..4294967296),
-							ASCone	VisibleString
-							}
+Neighbor ::= SEQUENCE 
+{
+	ASN INTEGER (1..4294967296),
+	ASCone	VisibleString
+}
 
-							Version ::= INTEGER
-							LastModified ::= GeneralizedTime
-							Created ::= GeneralizedTime
-							END
+Version ::= INTEGER
+LastModified ::= GeneralizedTime
+Created ::= GeneralizedTime
+END
 							]]>
 						</artwork>
 					</figure>
@@ -187,20 +187,20 @@
 				<section title="ASN.1 format of an AS-Cone">
 					<figure title="ASN.1 format of an AS-Cone">
 						<artwork><![CDATA[
-							ASCone DEFINITIONS ::=
-							BEGIN
-							Entities ::= SEQUENCE OF Entity
+ASCone DEFINITIONS ::=
+BEGIN
+Entities ::= SEQUENCE OF Entity
 
-							Entity CHOICE
-							{
-							ASN INTEGER (1..4294967296),
-							OtherASCone	VisibleString
-							}
+Entity CHOICE
+{
+	ASN INTEGER (1..4294967296),
+	OtherASCone	VisibleString
+}
 
-							Version ::= INTEGER
-							LastModified ::= GeneralizedTime
-							Created ::= GeneralizedTime
-							END
+Version ::= INTEGER
+LastModified ::= GeneralizedTime
+Created ::= GeneralizedTime
+END
 							]]>
 						</artwork>
 					</figure>
