@@ -172,12 +172,12 @@ END
 				</t>
 
 				<t>
-					An AS-Cone can reference another AS-Cone if a customer of the network also has defined an AS-Cone to be announced upstream.
+					An AS-Cone can reference another AS-Cone if a customer of the operator also has defined an AS-Cone to be announced upstream.
 				</t>
 
 				<section title="Naming convention for AS-Cone objects">
 					<t>
-						AS-Cones MUST have a unique name for the ASN they belong to.  Names are composed of ASCII strings up to 255 characters long.  They cannot contain spaces.
+						AS-Cones MUST have a unique name for the ASN they belong to.  Names are composed of ASCII strings up to 255 characters long and cannot contain spaces.
 					</t>
 					<t>
 						In order for AS-Cones to be unique in the global routing system, their string name is preceded by the AS number of the ASN they are part of, followed by ":". For example, AS-Cone "EuropeanCustomers" for ASN 65530 is represented as "AS65530:EuropeanCustomers" when referenced from a third party.
@@ -215,14 +215,14 @@ END
 
 			<t>
 				The goal of AS-Cones is to be able to recursively define all the originating ASNs that define the customer base of a given ASN, including all the transit relationships.
-				This means that through AS-Cones it is possible to create a graph of all the neighbor relationships for the customers of a given ASN.
+				This means that through AS-Cones, it is possible to create a graph of all the neighbor relationships for the customers of a given ASN.
 			</t>
 			<t>
 				It is important to note that, even though it is possible to perform path validation using AS-Cones, the intention of the document is not to replace BGPSEC (<xref target="RFC8205" />), but to make AS-Cones complimentary to it.
 			</t>
 
 			<t>
-				In order to validate a full AS-Cone, we have to assume that a network operator already runs an RPKI validator software.  The software provides access to a validated cache containing all the Policy defintion and AS-Cone objects.  Validation occurs following the description im <xref target="RFC6488" />.
+				In order to validate a full AS-Cone, we have to assume that a network operator already runs an RPKI validator software.  The software provides access to a validated cache containing all the Policy definitions and AS-Cone objects.  Validation occurs following the description in: <xref target="RFC6488" />.
 			</t>
 
 			<t>
@@ -230,24 +230,40 @@ END
 			</t>
 			
 			<t>
-				<list style="symbols">
-					<t>For Every downstream ASN, the operator takes its policy definition, and checks what the downstream has defined as entities that will be announced;</t>
-					<t>If there is no specific definition, or the definition points to an ASN, then the operator can look up the networks announced by that ASN, and add them to the filter;</t>
-					<t>If the definition points to an AS-Cone, the operator looks for the object referenced, contained in the validated cache;</t>
-					<t>If the validated cache does not contain the referenced object, then the validation moves on to the next downstream network;</t>
-					<t>If the validated cache contains the referenced object, the validation process evaluates every entry in the AS-Cone. For every entry:
-						<list style="symbols">
-							<t>If there is a reference to an ASN, then the operator can look up the networks announced by that ASN, and add them to the filter;</t>
-							<t>If there is a reference to another AS-Cone, the validating process should recursively process all the entries in that AS-Cone first, with the same principles contained in this list.</t>
+				<list style="numbers" counter="validation_count">
+					<t>For Every downstream ASN, the operator takes its policy definition file and collects a list of ASNs for the cone by looking at the following data, in exact order:
+						<list style="numbers" counter="validation_count">
+							<t>A policy for the specific relationship, in the form of ASX:ASY, where ASX is the downstream ASN, and ASY is the ASN of the operator validating the AS-Cone;</t>
+							<t>If there is no specific definition for the relationship, the ASX:Default policy;</t>
+						</list>
+						If none of the two objects above exists, then the operator should only consider the ASN of its downstream to be added to the list.
+					</t>
+					<t>These objects can either point to:
+						<list style="numbers" counter="validating_count">
+							<t>An AS-Cone; or</t>
+							<t>An ASN</t>
 						</list>
 					</t>
+					<t>If the definition points to an AS-Cone, the operator looks for the object referenced, which should be contained in the validated cache;</t>
+					<t>If the validated cache does not contain the referenced object, then the validation moves on to the next downstream network;</t>
+					<t>If the validated cache contains the referenced object, the validation process evaluates every entry in the AS-Cone. For each entry:
+						<list style="numbers" counter="validation_count">
+							<t>If there is a reference to an ASN, then the operator adds the ASN to the list for the given AS-Cone;</t>
+							<t>If there is a reference to another AS-Cone, the validating process should recursively process all the entries in that AS-Cone first, with the same principles contained in this list.</t>
+						</list>
+						Since the goal is to build a list of ASNs announcing routes in the AS-Cone, then if an ASN or an AS-Cone are referenced more than once in the process, their contents should only be added once to the list.  This is intended to avoid endless loops, and in order to avoid cross-reference of AS-Cones
+					</t>
+
 					<t>When all the AS-Cones referenced in the policies have been recursively iterated, and all the originating ASNs have been taken into account, the operator can then build a full prefix-list with all the prefixes originated in its AS-Cone.  This can be done by querying the RPKI validator software for all the networks originated by every ASN referenced in the AS-Cone.</t>
 				</list>
 			</t>
 		</section>
+		<section title="Recommendations for use of AS-Cones at Internet Exchange points">
+
+		</section>
 		<section title="Publication of AS-Cones as IRR objects">
 			<t>
-				Since AS-Cones are very similar to AS-Set RPSL Objects, they could also be publicated in IRR Databases as AS-Set objects.  Every ASN contained in an AS-Cone, and all the AS-Cones referenced should be considered as member: attributes.  The naming convention for AS-Cones should be maintained, in order to keep consistency between the two databases.
+				AS-Cones are very similar to AS-Set RPSL Objects, so they could also be published in IRR Databases as AS-Set objects.  Every ASN contained in an AS-Cone, and all the AS-Cones referenced should be considered as member: attributes.  The naming convention for AS-Cones should be maintained, in order to keep consistency between the two databases.
 			</t>
 		</section>
 		<section title="Security Considerations">
