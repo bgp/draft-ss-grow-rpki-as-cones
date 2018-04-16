@@ -259,11 +259,16 @@ END
 			</t>
 		</section>
 		<section title="Recommendations for use of AS-Cones at Internet Exchange points">
-
+			<t>
+				When an operator is a member of an internet exchange point, it is recommended for it to create at least a Default policy.
+			</t>
+			<t>
+				In case of a peering session with a route server, the operator could publish a policy pointing to the ASN of the route server.  A route server operator, then, could build strict prefix filtering rules for all the participants, and offer it as a service to its members.
+			</t>
 		</section>
 		<section title="Publication of AS-Cones as IRR objects">
 			<t>
-				AS-Cones are very similar to AS-Set RPSL Objects, so they could also be published in IRR Databases as AS-Set objects.  Every ASN contained in an AS-Cone, and all the AS-Cones referenced should be considered as member: attributes.  The naming convention for AS-Cones should be maintained, in order to keep consistency between the two databases.
+				AS-Cones are very similar to AS-Set RPSL Objects, so they could also be published in IRR Databases as AS-Set objects.  Every ASN contained in an AS-Cone, and all the AS-Cones referenced should be considered as member: attributes.  The naming convention for AS-Cones (ASX:AS-Cone) should be maintained, in order to keep consistency between the two databases.
 			</t>
 		</section>
 		<section title="Security Considerations">
