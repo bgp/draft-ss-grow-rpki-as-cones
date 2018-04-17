@@ -115,7 +115,7 @@
 				</t>
 
 				<t>
-					The default behaviour for a neighbor, if the relationship is not explicitly described in the policy, is to only accept the networks originated by the ASN.  This means that a stub ASN does not have to set up any AS-Cone nor any description or policy.
+					The default behaviour for a neighbour, if the relationship is not explicitly described in the policy, is to only accept the networks originated by the ASN.  This means that a stub ASN does not have to set up any AS-Cone nor any description or policy.
 				</t>
 
 				<t>
@@ -133,9 +133,9 @@
 						<artwork><![CDATA[
 ASNPolicy DEFINITIONS ::=
 BEGIN
-Neighbors ::= SEQUENCE OF Neighbor
+Neighbours ::= SEQUENCE OF Neighbour
 
-Neighbor ::= SEQUENCE 
+Neighbour ::= SEQUENCE 
 {
 	ASN INTEGER (1..4294967296),
 	ASCone	VisibleString
@@ -150,9 +150,9 @@ END
 					</figure>
 				</section>
 
-				<section title="Naming convention for neighbor relationships">
+				<section title="Naming convention for neighbour relationships">
 					<t>
-						When referring to a neighbor relationship contained in a Policy definition object the following convention should be used:
+						When referring to a neighbour relationship contained in a Policy definition object the following convention should be used:
 					</t>
 
 					<t>
@@ -215,7 +215,7 @@ END
 
 			<t>
 				The goal of AS-Cones is to be able to recursively define all the originating ASNs that define the customer base of a given ASN, including all the transit relationships.
-				This means that through AS-Cones, it is possible to create a graph of all the neighbor relationships for the customers of a given ASN.
+				This means that through AS-Cones, it is possible to create a graph of all the neighbour relationships for the customers of a given ASN.
 			</t>
 			<t>
 				It is important to note that, even though it is possible to perform path validation using AS-Cones, the intention of the document is not to replace BGPSEC (<xref target="RFC8205" />), but to make AS-Cones complimentary to it.
