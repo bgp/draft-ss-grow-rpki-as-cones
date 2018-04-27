@@ -1,16 +1,21 @@
 
-DRAFT_NAME=draft-ss-grow-rpki-as-cones
+BASENAME=draft-ss-grow-rpki-as-cones
+EXT=.xml
 VERSION=00
+SOURCENAME=${BASENAME}${EXT}
+DRAFTNAME=${BASENAME}-${VERSION}
 
 all:
-	xml2rfc ${DRAFT_NAME}.xml --basename=./${DRAFT_NAME}-${VERSION} --raw --text --html
+	xml2rfc ${SOURCENAME} -b ${DRAFTNAME} --raw --text --html
 
 text:
-	xml2rfc ${DRAFT_NAME}.xml -o ${DRAFT_NAME}-${VERSION}.txt --raw
+	xml2rfc ${SOURCENAME} -b ${DRAFTNAME} --raw
 
 paginated:
-	xml2rfc ${DRAFT_NAME}.xml -o ${DRAFT_NAME}-${VERSION}.txt --text
+	xml2rfc ${SOURCENAME} -b ${DRAFTNAME} --text
 
 html:
-	xml2rfc ${DRAFT_NAME}.xml -o ${DRAFT_NAME}-${VERSION}.html --html
+	xml2rfc ${SOURCENAME} -b ${DRAFTNAME} --html
 
+clean:
+	rm ${DRAFTNAME}.*
