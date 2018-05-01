@@ -160,7 +160,7 @@ END
                     </t>
 
                     <t>
-                        Where X is the number of the downstream ASN and Y is the number of the upstream ASN.
+                        Where X is the number of the AS holder and Y is the number of the ASN intended to use the AS-Cone object to generate a filter.
                     </t>
                 </section>
 
@@ -168,7 +168,8 @@ END
 
             <section title="AS-Cone definition object">
                 <t>
-                    An AS-Cone contains a list of the downstream customers and AS-Cones of a given ASN.  The list is used to create filter lists by the networks providing transit or a peering relationship with the ASN.
+                    An AS-Cone contains a list of the downstream customers and AS-Cones of a given ASN.
+                    The list is used to create filter lists by the networks providing transit or a peering relationship with the ASN.
                 </t>
 
                 <t>
@@ -216,9 +217,6 @@ END
             <t>
                 The goal of AS-Cones is to be able to recursively define all the originating ASNs that define the customer base of a given ASN, including all the transit relationships.
                 This means that through AS-Cones, it is possible to create a graph of all the neighbour relationships for the customers of a given ASN.
-            </t>
-            <t>
-                It is important to note that, even though it is possible to perform path validation using AS-Cones, the intention of the document is not to replace BGPSEC (<xref target="RFC8205" />), but to make AS-Cones complimentary to it.
             </t>
 
             <t>
@@ -299,6 +297,7 @@ END
             <?rfc include="reference.RFC.8174"?>
         </references>
         <references title="Informative References">
+            <?rfc include="reference.RFC.2622"?>
             <?rfc include="reference.RFC.6480"?>
             <?rfc include="reference.RFC.6482"?>
             <?rfc include="reference.RFC.6488"?>
