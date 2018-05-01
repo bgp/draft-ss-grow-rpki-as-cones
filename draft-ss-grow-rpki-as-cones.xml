@@ -82,15 +82,15 @@
     <middle>
         <section title="Introduction">
             <t>
-                The main goal of the RPKI system <xref target="RFC6480" /> is to provide additional security for the global routing system.
-                This is achieved through the use of information stored in Route Object Authorisation (ROAs), which describe the prefixes originated by ASNs.
+                The main goal of the Resource Public Key Infrastructure (RPKI) system <xref target="RFC6480" /> is to support improved security for the global routing system.
+                This is achieved through the use of information stored in a distributed repository system comprised of signed objects. A commonly used object type is the Route Object Authorisation (ROAs), which describe the prefixes originated by ASNs.
             </t>
             <t>
-                There is however no way for an operator to assert the routes for its customer networks, making it difficult to use the information carried by RPKI to create meaningful BGP-4 filters.
+                There is however no way for an operator to assert the routes for its customer networks, making it difficult to use the information carried by RPKI to create meaningful BGP-4 filters without relying on RPSL <xref target="RFC2622"/> as-sets.
             </t>
             <t>
                 This memo introduces a new attestation object, called an AS-Cone.
-                An AS-Cone is a digitally signed object with the goal to enable operators to define a set of customers that can be found as "right adjacencies", or transit customer networks, facilitating the construction of prefix filters for a given ASn, thus making routing more secure.
+                An AS-Cone is a digitally signed object with the goal to enable operators to define a set of customers that can be found as "right adjacencies", or transit customer networks, facilitating the construction of prefix filters for a given ASN, thus making routing more secure.
             </t>
         </section>
         <section title="Format of AS-Cone objects">
