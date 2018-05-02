@@ -22,7 +22,7 @@
 
 <rfc category="info"
     ipr="trust200902"
-    docName="draft-ss-grow-rpki-as-cones"
+    docName="draft-ss-grow-rpki-as-cones-00"
     submissionType="IETF">
     
     <front>
@@ -69,8 +69,9 @@
 
         <abstract>
             <t>
-                This document describes a way to define groups of Autonomous System numbers in RPKI <xref target="RFC6480" />, also known as AS-Cones.
-                AS-Cones provide a mechanism to be used by operators for filtering BGP-4 <xref target="RFC4271" /> announcements.
+							This document describes a way to define groups of Autonomous System numbers in RPKI <xref target="RFC6480" />.
+							We call them AS-Cones.
+              AS-Cones provide a mechanism to be used by operators for filtering BGP-4 <xref target="RFC4271" /> announcements.
             </t>
         </abstract>
         <note title="Requirements Language">

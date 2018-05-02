@@ -1,7 +1,7 @@
 
 BASENAME=draft-ss-grow-rpki-as-cones
 EXT=.xml
-VERSION=00
+VERSION=01
 SOURCENAME=${BASENAME}${EXT}
 DRAFTNAME=${BASENAME}-${VERSION}
 
