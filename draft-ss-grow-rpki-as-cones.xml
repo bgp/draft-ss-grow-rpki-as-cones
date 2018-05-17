@@ -116,7 +116,8 @@
                 </t>
 
                 <t>
-                    The default behaviour for a neighbour, if the relationship is not explicitly described in the policy, is to only accept the networks originated by the ASN.  This means that a stub ASN does not have to set up any AS-Cone nor any description or policy.
+									The default behaviour for a neighbour, if the relationship is not explicitly described in the policy, is to only accept the networks originated by the ASN.
+									This means that a stub ASN neither has to set up any AS-Cone, description, nor policy.
                 </t>
 
                 <t>
@@ -138,7 +139,7 @@ Neighbours ::= SEQUENCE OF Neighbour
 
 Neighbour ::= SEQUENCE 
 {
-    ASN INTEGER (1..4294967296),
+    ASN INTEGER (1..42949672965),
     ASCone  VisibleString
 }
 
@@ -196,7 +197,7 @@ Entities ::= SEQUENCE OF Entity
 
 Entity CHOICE
 {
-    ASN INTEGER (1..4294967296),
+    ASN INTEGER (1..4294967295),
     OtherASCone VisibleString
 }
 
@@ -222,13 +223,12 @@ END
             </t>
 
             <t>
-                In order to validate a full AS-Cone, we have to assume that a network operator already runs an RPKI validator software.
-                The software provides access to a validated cache containing all the Policy definitions and AS-Cone objects.
+                In order to validate a full AS-Cone, a network operator MUST have access to the validated cache of an RPKI validator software containing all the Policy definition and AS-Cone objects.
                 Validation occurs following the description in: <xref target="RFC6488" />.
             </t>
 
             <t>
-                In order to validate a full AS-Cone, an operator should perform the following steps:
+                In order to validate a full AS-Cone, an operator SHOULD perform the following steps:
             </t>
             
             <t>
@@ -292,7 +292,7 @@ END
         </section>
         <section title="Contributors">
             <t>
-                The following people contributed significantly to the content of the document:
+                The following people contributed significantly to the content of the document:  Greg Skinner.
             </t>
         </section>
         <section title="Acknowledgments">
