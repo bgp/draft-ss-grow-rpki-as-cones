@@ -247,14 +247,14 @@ END
                         </list>
                     </t>
                     <t>If the definition points to an AS-Cone, the operator looks for the object referenced, which should be contained in the validated cache;</t>
-                    <t>If the validated cache does not contain the referenced object, then the validation moves on to the next downstream network;</t>
+                    <t>If the validated cache does not contain the referenced object, then the validation moves on to the next downstream ASN;</t>
                     <t>If the validated cache contains the referenced object, the validation process evaluates every entry in the AS-Cone. For each entry:
                         <list style="numbers" counter="validation_count">
                             <t>If there is a reference to an ASN, then the operator adds the ASN to the list for the given AS-Cone;</t>
                             <t>If there is a reference to another AS-Cone, the validating process should recursively process all the entries in that AS-Cone first, with the same principles contained in this list.</t>
                         </list>
                         Since the goal is to build a list of ASNs announcing routes in the AS-Cone, then if an ASN or an AS-Cone are referenced more than once in the process, their contents should only be added once to the list.
-                        This is intended to avoid endless loops, and in order to avoid cross-reference of AS-Cones
+                        This is intended to avoid endless loops, and in order to avoid cross-reference of AS-Cones.
                     </t>
 
                     <t>
