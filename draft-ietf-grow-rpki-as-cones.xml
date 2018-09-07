@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!ENTITY RFC2234 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2234.xml">
+<!ENTITY RFC2629 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2629.xml">
+<!ENTITY RFC4234 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4234.xml">
+<!ENTITY nbsp    "&#160;">
+]>
+
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+
+<?rfc strict="yes" ?>
+<?rfc comments="no" ?>
+<?rfc inline="no" ?>
+<?rfc editing="no" ?>
+<?rfc toc="yes" ?>
+<?rfc tocompact="yes" ?>
+<?rfc tocdepth="3" ?>
+<?rfc symrefs="yes" ?>
+<?rfc sortrefs="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc subcompact="no" ?>
+
+<rfc category="info"
+    ipr="trust200902"
+    docName="draft-ietf-grow-rpki-as-cones-00"
+    submissionType="IETF">
+    
+    <front>
+
+        <title abbrev="RPKI AS Cones">
+            RPKI Autonomous Systems Cones: A Profile To Define Sets of Autonomous Systems Numbers To Facilitate BGP Filtering
+        </title>
+
+        <author fullname="Job Snijders" initials="J." surname="Snijders">
+            <organization abbrev="NTT">NTT Communications</organization>
+
+            <address>
+                <postal>
+                    <street>Theodorus Majofskistraat 100</street>
+                    <code>1065 SZ</code>
+                    <city>Amsterdam</city>
+                    <country>The Netherlands</country>
+                </postal>
+                <email>job@ntt.net</email>
+            </address>
+        </author>
+
+        <author fullname="Massimiliano Stucchi" initials="M." surname="Stucchi">
+            <organization>RIPE NCC</organization>
+
+            <address>
+                <postal>
+                    <street>Stationsplein, 11</street>
+                    <code>1012 AB</code>
+                    <city>Amsterdam</city>
+                    <country>The Netherlands</country>
+                </postal>
+
+                <email>mstucchi@ripe.net</email>
+            </address>
+        </author>
+
+        <date />
+        <area>Routing</area>
+        <workgroup>Global Routing Operations</workgroup>
+
+        <keyword>BGP</keyword>
+        <keyword>RPKI</keyword>
+
+        <abstract>
+            <t>
+							This document describes a way to define groups of Autonomous System numbers in RPKI <xref target="RFC6480" />.
+							We call them AS-Cones.
+              AS-Cones provide a mechanism to be used by operators for filtering BGP-4 <xref target="RFC4271" /> announcements.
+            </t>
+        </abstract>
+        <note title="Requirements Language">
+            <t>
+                The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/> when, and only when, they appear in all capitals, as shown here.
+            </t>
+        </note>
+    </front>
+    <middle>
+        <section title="Introduction">
+            <t>
+                The main goal of the Resource Public Key Infrastructure (RPKI) system <xref target="RFC6480" /> is to support improved security for the global routing system.
+                This is achieved through the use of information stored in a distributed repository system comprised of signed objects. A commonly used object type is the Route Object Authorisation (ROAs), which describe the prefixes originated by ASNs.
+            </t>
+            <t>
+                There is however no way for an operator to assert the routes for its customer networks, making it difficult to use the information carried by RPKI to create meaningful BGP-4 filters without relying on RPSL <xref target="RFC2622"/> as-sets.
+            </t>
+            <t>
+                This memo introduces a new attestation object, called an AS-Cone.
+                An AS-Cone is a digitally signed object with the goal to enable operators to define a set of customers that can be found as "right adjacencies", or transit customer networks, facilitating the construction of prefix filters for a given ASN, thus making routing more secure.
+            </t>
+        </section>
+        <section title="Format of AS-Cone objects">
+            <t>
+                AS-Cones are composed of two types of distinct objects:
+            </t>
+            <t><list style="symbols">
+                    <t>Policy definitions; and</t>
+                    <t>The AS-Cones themselves.</t>
+                </list>
+            </t>
+
+            <t>
+                These objects are stored in ASN.1 format and are digitally signed according to the same rules and conventions applied for RPKI ROA Objects (<xref target="RFC6482" />).
+            </t>
+
+            <section title="Policy definition object">
+
+                <t>
+                    A policy definition contains a list the upstream and peering relationships for a given Autonomous System that need an AS-Cone to be used for filtering.
+                    For each relationship, an AS-Cone is referenced to indicate which BGP networks will be announced to the other end of the relationship.
+                </t>
+
+                <t>
+									The default behaviour for a neighbour, if the relationship is not explicitly described in the policy, is to only accept the networks originated by the ASN.
+									This means that a stub ASN neither has to set up any AS-Cone, description, nor policy.
+                </t>
+
+                <t>
+                    Only one AS-Cone can be supplied for a given relationship.  If more than one AS-Cone needs to be announced in the relationship, then it is mandatory to create a third AS-Cone that includes those two.
+                </t>
+
+                <section title="Naming convention for Policy definition objects">
+                    <t>
+                        A Policy object is referenced using the Autonomous System number it refers to, preceded by the string "AS".
+                    </t>
+                </section>
+
+                <section title="ASN.1 format of a Policy Definition object">
+                    <figure title="ASN.1 format of a Policy definition object">
+                        <artwork><![CDATA[
+ASNPolicy DEFINITIONS ::=
+BEGIN
+Neighbours ::= SEQUENCE OF Neighbour
+
+Neighbour ::= SEQUENCE 
+{
+    ASN INTEGER (1..42949672965),
+    ASCone  VisibleString
+}
+
+Version ::= INTEGER
+LastModified ::= GeneralizedTime
+Created ::= GeneralizedTime
+END
+                            ]]>
+                        </artwork>
+                    </figure>
+                </section>
+
+                <section title="Naming convention for neighbour relationships">
+                    <t>
+                        When referring to a neighbour relationship contained in a Policy definition object the following convention should be used:
+                    </t>
+
+                    <t>
+                        ASX:ASY
+                    </t>
+
+                    <t>
+                        Where X is the number of the AS holder and Y is the number of the ASN intended to use the AS-Cone object to generate a filter.
+                    </t>
+                </section>
+
+            </section>
+
+            <section title="AS-Cone definition object">
+                <t>
+                    An AS-Cone contains a list of the downstream customers and AS-Cones of a given ASN.
+                    The list is used to create filter lists by the networks providing transit or a peering relationship with the ASN.
+                </t>
+
+                <t>
+                    An AS-Cone can reference another AS-Cone if a customer of the operator also has defined an AS-Cone to be announced upstream.
+                </t>
+
+                <section title="Naming convention for AS-Cone objects">
+                    <t>
+                        AS-Cones MUST have a unique name for the ASN they belong to.  Names are composed of ASCII strings up to 255 characters long and cannot contain spaces.
+                    </t>
+                    <t>
+                        In order for AS-Cones to be unique in the global routing system, their string name is preceded by the AS number of the ASN they are part of, followed by ":".
+                        For example, AS-Cone "EuropeanCustomers" for ASN 65530 is represented as "AS65530:EuropeanCustomers" when referenced from a third party.
+                    </t>
+                </section>
+
+                <section title="ASN.1 format of an AS-Cone">
+                    <figure title="ASN.1 format of an AS-Cone">
+                        <artwork><![CDATA[
+ASCone DEFINITIONS ::=
+BEGIN
+Entities ::= SEQUENCE OF Entity
+
+Entity CHOICE
+{
+    ASN INTEGER (1..4294967295),
+    OtherASCone VisibleString
+}
+
+Version ::= INTEGER
+LastModified ::= GeneralizedTime
+Created ::= GeneralizedTime
+END
+                            ]]>
+                        </artwork>
+                    </figure>
+                </section>
+
+            </section>
+
+        </section>
+
+
+        <section title="Validating an AS-Cone">
+
+            <t>
+                The goal of AS-Cones is to be able to recursively define all the originating ASNs that define the customer base of a given ASN, including all the transit relationships.
+                This means that through AS-Cones, it is possible to create a graph of all the neighbour relationships for the customers of a given ASN.
+            </t>
+
+            <t>
+                In order to validate a full AS-Cone, a network operator MUST have access to the validated cache of an RPKI validator software containing all the Policy definition and AS-Cone objects.
+                Validation occurs following the description in: <xref target="RFC6488" />.
+            </t>
+
+            <t>
+                In order to validate a full AS-Cone, an operator SHOULD perform the following steps:
+            </t>
+            
+            <t>
+                <list style="numbers" counter="validation_count">
+                    <t>For Every downstream ASN, the operator takes its policy definition file and collects a list of ASNs for the cone by looking at the following data, in exact order:
+                        <list style="numbers" counter="validation_count">
+                            <t>A policy for the specific relationship, in the form of ASX:ASY, where ASX is the downstream ASN, and ASY is the ASN of the operator validating the AS-Cone;</t>
+                            <t>If there is no specific definition for the relationship, the ASX:Default policy;</t>
+                        </list>
+                        If none of the two objects above exists, then the operator should only consider the ASN of its downstream to be added to the list.
+                    </t>
+                    <t>These objects can either point to:
+                        <list style="numbers" counter="validating_count">
+                            <t>An AS-Cone; or</t>
+                            <t>An ASN</t>
+                        </list>
+                    </t>
+                    <t>If the definition points to an AS-Cone, the operator looks for the object referenced, which should be contained in the validated cache;</t>
+                    <t>If the validated cache does not contain the referenced object, then the validation moves on to the next downstream ASN;</t>
+                    <t>If the validated cache contains the referenced object, the validation process evaluates every entry in the AS-Cone. For each entry:
+                        <list style="numbers" counter="validation_count">
+                            <t>If there is a reference to an ASN, then the operator adds the ASN to the list for the given AS-Cone;</t>
+                            <t>If there is a reference to another AS-Cone, the validating process should recursively process all the entries in that AS-Cone first, with the same principles contained in this list.</t>
+                        </list>
+                        Since the goal is to build a list of ASNs announcing routes in the AS-Cone, then if an ASN or an AS-Cone are referenced more than once in the process, their contents should only be added once to the list.
+                        This is intended to avoid endless loops, and in order to avoid cross-reference of AS-Cones.
+                    </t>
+
+                    <t>
+                        When all the AS-Cones referenced in the policies have been recursively iterated, and all the originating ASNs have been taken into account, the operator can then build a full prefix-list with all the prefixes originated in its AS-Cone.
+                        This can be done by querying the RPKI validator software for all the networks originated by every ASN referenced in the AS-Cone.
+                    </t>
+                </list>
+            </t>
+        </section>
+        <section title="Recommendations for use of AS-Cones at Internet Exchange points">
+            <t>
+                When an operator is a member of an internet exchange point, it is recommended for it to create at least a Default policy.
+            </t>
+            <t>
+                In case of a peering session with a route server, the operator could publish a policy pointing to the ASN of the route server.
+                A route server operator, then, could build strict prefix filtering rules for all the participants, and offer it as a service to its members.
+            </t>
+        </section>
+        <section title="Publication of AS-Cones as IRR objects">
+            <t>
+                AS-Cones are very similar to AS-Set RPSL Objects, so they could also be published in IRR Databases as AS-Set objects.
+                Every ASN contained in an AS-Cone, and all the AS-Cones referenced should be considered as member: attributes.
+                The naming convention for AS-Cones (ASX:AS-Cone) should be maintained, in order to keep consistency between the two databases.
+            </t>
+        </section>
+        <section title="Security Considerations">
+            <t>
+                TBW
+            </t>
+        </section>
+        <section title="IANA Considerations">
+            <t>
+                This memo includes no request to IANA.
+            </t>
+        </section>
+        <section title="Contributors">
+            <t>
+                The following people contributed significantly to the content of the document:  Greg Skinner.
+            </t>
+        </section>
+        <section title="Acknowledgments">
+            <t>
+                The authors would like to thank ...
+            </t>
+        </section>
+    </middle>
+    <back>
+        <references title="Normative References">
+            <?rfc include="reference.RFC.2119"?>
+            <?rfc include="reference.RFC.4271"?>
+            <?rfc include="reference.RFC.8174"?>
+        </references>
+        <references title="Informative References">
+            <?rfc include="reference.RFC.2622"?>
+            <?rfc include="reference.RFC.6480"?>
+            <?rfc include="reference.RFC.6482"?>
+            <?rfc include="reference.RFC.6488"?>
+        </references>
+    </back>
+</rfc>
