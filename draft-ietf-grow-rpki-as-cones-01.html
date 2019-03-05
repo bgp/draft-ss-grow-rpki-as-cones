@@ -1,0 +1,727 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>RPKI Autonomous Systems Cones: A Profile To Define Sets of Autonomous Systems Numbers To Facilitate BGP Filtering </title>
+
+  <style type="text/css" title="Xml2Rfc (sans serif)">
+  /*<![CDATA[*/
+	  a {
+	  text-decoration: none;
+	  }
+      /* info code from SantaKlauss at http://www.madaboutstyle.com/tooltip2.html */
+      a.info {
+          /* This is the key. */
+          position: relative;
+          z-index: 24;
+          text-decoration: none;
+      }
+      a.info:hover {
+          z-index: 25;
+          color: #FFF; background-color: #900;
+      }
+      a.info span { display: none; }
+      a.info:hover span.info {
+          /* The span will display just on :hover state. */
+          display: block;
+          position: absolute;
+          font-size: smaller;
+          top: 2em; left: -5em; width: 15em;
+          padding: 2px; border: 1px solid #333;
+          color: #900; background-color: #EEE;
+          text-align: left;
+      }
+	  a.smpl {
+	  color: black;
+	  }
+	  a:hover {
+	  text-decoration: underline;
+	  }
+	  a:active {
+	  text-decoration: underline;
+	  }
+	  address {
+	  margin-top: 1em;
+	  margin-left: 2em;
+	  font-style: normal;
+	  }
+	  body {
+	  color: black;
+	  font-family: verdana, helvetica, arial, sans-serif;
+	  font-size: 10pt;
+	  max-width: 55em;
+	  
+	  }
+	  cite {
+	  font-style: normal;
+	  }
+	  dd {
+	  margin-right: 2em;
+	  }
+	  dl {
+	  margin-left: 2em;
+	  }
+	
+	  ul.empty {
+	  list-style-type: none;
+	  }
+	  ul.empty li {
+	  margin-top: .5em;
+	  }
+	  dl p {
+	  margin-left: 0em;
+	  }
+	  dt {
+	  margin-top: .5em;
+	  }
+	  h1 {
+	  font-size: 14pt;
+	  line-height: 21pt;
+	  page-break-after: avoid;
+	  }
+	  h1.np {
+	  page-break-before: always;
+	  }
+	  h1 a {
+	  color: #333333;
+	  }
+	  h2 {
+	  font-size: 12pt;
+	  line-height: 15pt;
+	  page-break-after: avoid;
+	  }
+	  h3, h4, h5, h6 {
+	  font-size: 10pt;
+	  page-break-after: avoid;
+	  }
+	  h2 a, h3 a, h4 a, h5 a, h6 a {
+	  color: black;
+	  }
+	  img {
+	  margin-left: 3em;
+	  }
+	  li {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol p {
+	  margin-left: 0em;
+	  }
+	  p {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  pre {
+	  margin-left: 3em;
+	  background-color: lightyellow;
+	  padding: .25em;
+	  }
+	  pre.text2 {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f0f0f0;
+	  width: 69em;
+	  }
+	  pre.inline {
+	  background-color: white;
+	  padding: 0em;
+	  }
+	  pre.text {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  width: 69em;
+	  }
+	  pre.drawing {
+	  border-style: solid;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  padding: 2em;
+	  }
+	  table {
+	  margin-left: 2em;
+	  }
+	  table.tt {
+	  vertical-align: top;
+	  }
+	  table.full {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.headers {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.tt td {
+	  vertical-align: top;
+	  }
+	  table.full td {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.tt th {
+	  vertical-align: top;
+	  }
+	  table.full th {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.headers th {
+	  border-style: none none inset none;
+	  border-width: 1px;
+	  }
+	  table.left {
+	  margin-right: auto;
+	  }
+	  table.right {
+	  margin-left: auto;
+	  }
+	  table.center {
+	  margin-left: auto;
+	  margin-right: auto;
+	  }
+	  caption {
+	  caption-side: bottom;
+	  font-weight: bold;
+	  font-size: 9pt;
+	  margin-top: .5em;
+	  }
+	
+	  table.header {
+	  border-spacing: 1px;
+	  width: 95%;
+	  font-size: 10pt;
+	  color: white;
+	  }
+	  td.top {
+	  vertical-align: top;
+	  }
+	  td.topnowrap {
+	  vertical-align: top;
+	  white-space: nowrap; 
+	  }
+	  table.header td {
+	  background-color: gray;
+	  width: 50%;
+	  }
+	  table.header a {
+	  color: white;
+	  }
+	  td.reference {
+	  vertical-align: top;
+	  white-space: nowrap;
+	  padding-right: 1em;
+	  }
+	  thead {
+	  display:table-header-group;
+	  }
+	  ul.toc, ul.toc ul {
+	  list-style: none;
+	  margin-left: 1.5em;
+	  margin-right: 0em;
+	  padding-left: 0em;
+	  }
+	  ul.toc li {
+	  line-height: 150%;
+	  font-weight: bold;
+	  font-size: 10pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  ul.toc li li {
+	  line-height: normal;
+	  font-weight: normal;
+	  font-size: 9pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  li.excluded {
+	  font-size: 0pt;
+	  }
+	  ul p {
+	  margin-left: 0em;
+	  }
+	
+	  .comment {
+	  background-color: yellow;
+	  }
+	  .center {
+	  text-align: center;
+	  }
+	  .error {
+	  color: red;
+	  font-style: italic;
+	  font-weight: bold;
+	  }
+	  .figure {
+	  font-weight: bold;
+	  text-align: center;
+	  font-size: 9pt;
+	  }
+	  .filename {
+	  color: #333333;
+	  font-weight: bold;
+	  font-size: 12pt;
+	  line-height: 21pt;
+	  text-align: center;
+	  }
+	  .fn {
+	  font-weight: bold;
+	  }
+	  .hidden {
+	  display: none;
+	  }
+	  .left {
+	  text-align: left;
+	  }
+	  .right {
+	  text-align: right;
+	  }
+	  .title {
+	  color: #990000;
+	  font-size: 18pt;
+	  line-height: 18pt;
+	  font-weight: bold;
+	  text-align: center;
+	  margin-top: 36pt;
+	  }
+	  .vcardline {
+	  display: block;
+	  }
+	  .warning {
+	  font-size: 14pt;
+	  background-color: yellow;
+	  }
+	
+	
+	  @media print {
+	  .noprint {
+		display: none;
+	  }
+	
+	  a {
+		color: black;
+		text-decoration: none;
+	  }
+	
+	  table.header {
+		width: 90%;
+	  }
+	
+	  td.header {
+		width: 50%;
+		color: black;
+		background-color: white;
+		vertical-align: top;
+		font-size: 12pt;
+	  }
+	
+	  ul.toc a::after {
+		content: leader('.') target-counter(attr(href), page);
+	  }
+	
+	  ul.ind li li a {
+		content: target-counter(attr(href), page);
+	  }
+	
+	  .print2col {
+		column-count: 2;
+		-moz-column-count: 2;
+		column-fill: auto;
+	  }
+	  }
+	
+	  @page {
+	  @top-left {
+		   content: "Internet-Draft"; 
+	  } 
+	  @top-right {
+		   content: "December 2010"; 
+	  } 
+	  @top-center {
+		   content: "Abbreviated Title";
+	  } 
+	  @bottom-left {
+		   content: "Doe"; 
+	  } 
+	  @bottom-center {
+		   content: "Expires June 2011"; 
+	  } 
+	  @bottom-right {
+		   content: "[Page " counter(page) "]"; 
+	  } 
+	  }
+	
+	  @page:first { 
+		@top-left {
+		  content: normal;
+		}
+		@top-right {
+		  content: normal;
+		}
+		@top-center {
+		  content: normal;
+		}
+	  }
+  /*]]>*/
+  </style>
+
+  <link href="#rfc.toc" rel="Contents">
+<link href="#rfc.section.1" rel="Chapter" title="1 Introduction">
+<link href="#rfc.section.2" rel="Chapter" title="2 Format of AS-Cone objects">
+<link href="#rfc.section.2.1" rel="Chapter" title="2.1 Policy definition object">
+<link href="#rfc.section.2.1.1" rel="Chapter" title="2.1.1 Naming convention for Policy definition objects">
+<link href="#rfc.section.2.1.2" rel="Chapter" title="2.1.2 ASN.1 format of a Policy Definition object">
+<link href="#rfc.section.2.1.3" rel="Chapter" title="2.1.3 Naming convention for neighbour relationships">
+<link href="#rfc.section.2.2" rel="Chapter" title="2.2 AS-Cone definition object">
+<link href="#rfc.section.2.2.1" rel="Chapter" title="2.2.1 Naming convention for AS-Cone objects">
+<link href="#rfc.section.2.2.2" rel="Chapter" title="2.2.2 ASN.1 format of an AS-Cone">
+<link href="#rfc.section.3" rel="Chapter" title="3 Validating an AS-Cone">
+<link href="#rfc.section.4" rel="Chapter" title="4 Recommendations for use of AS-Cones at Internet Exchange points">
+<link href="#rfc.section.5" rel="Chapter" title="5 Publication of AS-Cones as IRR objects">
+<link href="#rfc.section.6" rel="Chapter" title="6 Security Considerations">
+<link href="#rfc.section.7" rel="Chapter" title="7 IANA Considerations">
+<link href="#rfc.section.8" rel="Chapter" title="8 Contributors">
+<link href="#rfc.section.9" rel="Chapter" title="9 Acknowledgments">
+<link href="#rfc.references" rel="Chapter" title="10 References">
+<link href="#rfc.references.1" rel="Chapter" title="10.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="10.2 Informative References">
+<link href="#rfc.authors" rel="Chapter">
+
+
+  <meta name="generator" content="xml2rfc version 2.8.2 - https://tools.ietf.org/tools/xml2rfc" />
+  <link rel="schema.dct" href="http://purl.org/dc/terms/" />
+
+  <meta name="dct.creator" content="Snijders, J. and M. Stucchi" />
+  <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-grow-rpki-as-cones-01" />
+  <meta name="dct.issued" scheme="ISO8601" content="2019-3-5" />
+  <meta name="dct.abstract" content="This document describes a way to define groups of Autonomous System numbers in RPKI " />
+  <meta name="description" content="This document describes a way to define groups of Autonomous System numbers in RPKI " />
+
+</head>
+
+<body>
+
+  <table class="header">
+    <tbody>
+    
+    	<tr>
+<td class="left">Global Routing Operations</td>
+<td class="right">J. Snijders</td>
+</tr>
+<tr>
+<td class="left">Internet-Draft</td>
+<td class="right">NTT</td>
+</tr>
+<tr>
+<td class="left">Intended status: Informational</td>
+<td class="right">M. Stucchi</td>
+</tr>
+<tr>
+<td class="left">Expires: September 6, 2019</td>
+<td class="right">RIPE NCC</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">March 5, 2019</td>
+</tr>
+
+    	
+    </tbody>
+  </table>
+
+  <p class="title">RPKI Autonomous Systems Cones: A Profile To Define Sets of Autonomous Systems Numbers To Facilitate BGP Filtering <br />
+  <span class="filename">draft-ietf-grow-rpki-as-cones-01</span></p>
+  
+  <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
+<p>This document describes a way to define groups of Autonomous System numbers in RPKI <a href="#RFC6480" class="xref">[RFC6480]</a>.  We call them AS-Cones.  AS-Cones provide a mechanism to be used by operators for filtering BGP-4 <a href="#RFC4271" class="xref">[RFC4271]</a> announcements.  </p>
+<h1><a>Requirements Language</a></h1>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <a href="#RFC2119" class="xref">[RFC2119]</a> <a href="#RFC8174" class="xref">[RFC8174]</a> when, and only when, they appear in all capitals, as shown here.  </p>
+<h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
+<p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
+<p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
+<p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
+<p>This Internet-Draft will expire on September 6, 2019.</p>
+<h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
+<p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
+<p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
+
+  
+  <hr class="noprint" />
+  <h1 class="np" id="rfc.toc"><a href="#rfc.toc">Table of Contents</a></h1>
+  <ul class="toc">
+
+  	<li>1.   <a href="#rfc.section.1">Introduction</a>
+</li>
+<li>2.   <a href="#rfc.section.2">Format of AS-Cone objects</a>
+</li>
+<ul><li>2.1.   <a href="#rfc.section.2.1">Policy definition object</a>
+</li>
+<ul><li>2.1.1.   <a href="#rfc.section.2.1.1">Naming convention for Policy definition objects</a>
+</li>
+<li>2.1.2.   <a href="#rfc.section.2.1.2">ASN.1 format of a Policy Definition object</a>
+</li>
+<li>2.1.3.   <a href="#rfc.section.2.1.3">Naming convention for neighbour relationships</a>
+</li>
+</ul><li>2.2.   <a href="#rfc.section.2.2">AS-Cone definition object</a>
+</li>
+<ul><li>2.2.1.   <a href="#rfc.section.2.2.1">Naming convention for AS-Cone objects</a>
+</li>
+<li>2.2.2.   <a href="#rfc.section.2.2.2">ASN.1 format of an AS-Cone</a>
+</li>
+</ul></ul><li>3.   <a href="#rfc.section.3">Validating an AS-Cone</a>
+</li>
+<li>4.   <a href="#rfc.section.4">Recommendations for use of AS-Cones at Internet Exchange points</a>
+</li>
+<li>5.   <a href="#rfc.section.5">Publication of AS-Cones as IRR objects</a>
+</li>
+<li>6.   <a href="#rfc.section.6">Security Considerations</a>
+</li>
+<li>7.   <a href="#rfc.section.7">IANA Considerations</a>
+</li>
+<li>8.   <a href="#rfc.section.8">Contributors</a>
+</li>
+<li>9.   <a href="#rfc.section.9">Acknowledgments</a>
+</li>
+<li>10.   <a href="#rfc.references">References</a>
+</li>
+<ul><li>10.1.   <a href="#rfc.references.1">Normative References</a>
+</li>
+<li>10.2.   <a href="#rfc.references.2">Informative References</a>
+</li>
+</ul><li><a href="#rfc.authors">Authors' Addresses</a>
+</li>
+
+
+  </ul>
+
+  <h1 id="rfc.section.1">
+<a href="#rfc.section.1">1.</a> Introduction</h1>
+<p id="rfc.section.1.p.1">The main goal of the Resource Public Key Infrastructure (RPKI) system <a href="#RFC6480" class="xref">[RFC6480]</a> is to support improved security for the global routing system.  This is achieved through the use of information stored in a distributed repository system comprised of signed objects. A commonly used object type is the Route Object Authorisation (ROAs), which describe the prefixes originated by ASNs.  </p>
+<p id="rfc.section.1.p.2">There is however no way for an operator to assert the routes for its customer networks, making it difficult to use the information carried by RPKI to create meaningful BGP-4 filters without relying on RPSL <a href="#RFC2622" class="xref">[RFC2622]</a> as-sets.  </p>
+<p id="rfc.section.1.p.3">This memo introduces a new attestation object, called an AS-Cone.  An AS-Cone is a digitally signed object with the goal to enable operators to define a set of customers that can be found as "right adjacencies", or transit customer networks, facilitating the construction of prefix filters for a given ASN, thus making routing more secure.  </p>
+<h1 id="rfc.section.2">
+<a href="#rfc.section.2">2.</a> Format of AS-Cone objects</h1>
+<p id="rfc.section.2.p.1">AS-Cones are composed of two types of distinct objects: </p>
+<p></p>
+
+<ul>
+<li>Policy definitions; and</li>
+<li>The AS-Cones themselves.</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.2.p.3">These objects are stored in ASN.1 format and are digitally signed according to the same rules and conventions applied for RPKI ROA Objects (<a href="#RFC6482" class="xref">[RFC6482]</a>).  </p>
+<h1 id="rfc.section.2.1">
+<a href="#rfc.section.2.1">2.1.</a> Policy definition object</h1>
+<p id="rfc.section.2.1.p.1">A policy definition contains a list the upstream and peering relationships for a given Autonomous System that need an AS-Cone to be used for filtering.  For each relationship, an AS-Cone is referenced to indicate which BGP networks will be announced to the other end of the relationship.  </p>
+<p id="rfc.section.2.1.p.2">The default behaviour for a neighbour, if the relationship is not explicitly described in the policy, is to only accept the networks originated by the ASN.  This means that a stub ASN neither has to set up any AS-Cone, description, nor policy.  </p>
+<p id="rfc.section.2.1.p.3">Only one AS-Cone can be supplied for a given relationship.  If more than one AS-Cone needs to be announced in the relationship, then it is mandatory to create a third AS-Cone that includes those two.  </p>
+<h1 id="rfc.section.2.1.1">
+<a href="#rfc.section.2.1.1">2.1.1.</a> Naming convention for Policy definition objects</h1>
+<p id="rfc.section.2.1.1.p.1">A Policy object is referenced using the Autonomous System number it refers to, preceded by the string "AS".  </p>
+<h1 id="rfc.section.2.1.2">
+<a href="#rfc.section.2.1.2">2.1.2.</a> ASN.1 format of a Policy Definition object</h1>
+<pre>
+ASNPolicy DEFINITIONS ::=
+BEGIN
+Neighbours ::= SEQUENCE OF Neighbour
+
+Neighbour ::= SEQUENCE 
+{
+    ASN INTEGER (1..42949672965),
+    ASCone  VisibleString
+}
+
+Version ::= INTEGER
+LastModified ::= GeneralizedTime
+Created ::= GeneralizedTime
+END
+                            
+                        </pre>
+<p class="figure">ASN.1 format of a Policy definition object</p>
+<h1 id="rfc.section.2.1.3">
+<a href="#rfc.section.2.1.3">2.1.3.</a> Naming convention for neighbour relationships</h1>
+<p id="rfc.section.2.1.3.p.1">When referring to a neighbour relationship contained in a Policy definition object the following convention should be used: </p>
+<p id="rfc.section.2.1.3.p.2">ASX:ASY </p>
+<p id="rfc.section.2.1.3.p.3">Where X is the number of the AS holder and Y is the number of the ASN intended to use the AS-Cone object to generate a filter.  </p>
+<h1 id="rfc.section.2.2">
+<a href="#rfc.section.2.2">2.2.</a> AS-Cone definition object</h1>
+<p id="rfc.section.2.2.p.1">An AS-Cone contains a list of the downstream customers and AS-Cones of a given ASN.  The list is used to create filter lists by the networks providing transit or a peering relationship with the ASN.  </p>
+<p id="rfc.section.2.2.p.2">An AS-Cone can reference another AS-Cone if a customer of the operator also has defined an AS-Cone to be announced upstream.  </p>
+<h1 id="rfc.section.2.2.1">
+<a href="#rfc.section.2.2.1">2.2.1.</a> Naming convention for AS-Cone objects</h1>
+<p id="rfc.section.2.2.1.p.1">AS-Cones MUST have a unique name for the ASN they belong to.  Names are composed of ASCII strings up to 255 characters long and cannot contain spaces.  </p>
+<p id="rfc.section.2.2.1.p.2">In order for AS-Cones to be unique in the global routing system, their string name is preceded by the AS number of the ASN they are part of, followed by ":".  For example, AS-Cone "EuropeanCustomers" for ASN 65530 is represented as "AS65530:EuropeanCustomers" when referenced from a third party.  </p>
+<h1 id="rfc.section.2.2.2">
+<a href="#rfc.section.2.2.2">2.2.2.</a> ASN.1 format of an AS-Cone</h1>
+<pre>
+ASCone DEFINITIONS ::=
+BEGIN
+Entities ::= SEQUENCE OF Entity
+
+Entity CHOICE
+{
+    ASN INTEGER (1..4294967295),
+    OtherASCone VisibleString
+}
+
+Version ::= INTEGER
+LastModified ::= GeneralizedTime
+Created ::= GeneralizedTime
+END
+                            
+                        </pre>
+<p class="figure">ASN.1 format of an AS-Cone</p>
+<h1 id="rfc.section.3">
+<a href="#rfc.section.3">3.</a> Validating an AS-Cone</h1>
+<p id="rfc.section.3.p.1">The goal of AS-Cones is to be able to recursively define all the originating ASNs that define the customer base of a given ASN, including all the transit relationships.  This means that through AS-Cones, it is possible to create a graph of all the neighbour relationships for the customers of a given ASN.  </p>
+<p id="rfc.section.3.p.2">In order to validate a full AS-Cone, a network operator MUST have access to the validated cache of an RPKI validator software containing all the Policy definition and AS-Cone objects.  Validation occurs following the description in: <a href="#RFC6488" class="xref">[RFC6488]</a>.  </p>
+<p id="rfc.section.3.p.3">In order to validate a full AS-Cone, an operator SHOULD perform the following steps: </p>
+<p></p>
+
+<ol>
+<li>For Every downstream ASN, the operator takes its policy definition file and collects a list of ASNs for the cone by looking at the following data, in exact order: <ol>
+<li>A policy for the specific relationship, in the form of ASX:ASY, where ASX is the downstream ASN, and ASY is the ASN of the operator validating the AS-Cone;</li>
+<li>If there is no specific definition for the relationship, the ASX:Default policy;</li>
+</ol>
+<p> If none of the two objects above exists, then the operator should only consider the ASN of its downstream to be added to the list.  </p>
+</li>
+<li>These objects can either point to: <ol>
+<li>An AS-Cone; or</li>
+<li>An ASN</li>
+</ol>
+<p> </p>
+</li>
+<li>If the definition points to an AS-Cone, the operator looks for the object referenced, which should be contained in the validated cache;</li>
+<li>If the validated cache does not contain the referenced object, then the validation moves on to the next downstream ASN;</li>
+<li>If the validated cache contains the referenced object, the validation process evaluates every entry in the AS-Cone. For each entry: <ol>
+<li>If there is a reference to an ASN, then the operator adds the ASN to the list for the given AS-Cone;</li>
+<li>If there is a reference to another AS-Cone, the validating process should recursively process all the entries in that AS-Cone first, with the same principles contained in this list.</li>
+</ol>
+<p> Since the goal is to build a list of ASNs announcing routes in the AS-Cone, then if an ASN or an AS-Cone are referenced more than once in the process, their contents should only be added once to the list.  This is intended to avoid endless loops, and in order to avoid cross-reference of AS-Cones.  </p>
+</li>
+<li>When all the AS-Cones referenced in the policies have been recursively iterated, and all the originating ASNs have been taken into account, the operator can then build a full prefix-list with all the prefixes originated in its AS-Cone.  This can be done by querying the RPKI validator software for all the networks originated by every ASN referenced in the AS-Cone.  </li>
+</ol>
+
+<p> </p>
+<h1 id="rfc.section.4">
+<a href="#rfc.section.4">4.</a> Recommendations for use of AS-Cones at Internet Exchange points</h1>
+<p id="rfc.section.4.p.1">When an operator is a member of an internet exchange point, it is recommended for it to create at least a Default policy.  </p>
+<p id="rfc.section.4.p.2">In case of a peering session with a route server, the operator could publish a policy pointing to the ASN of the route server.  A route server operator, then, could build strict prefix filtering rules for all the participants, and offer it as a service to its members.  </p>
+<h1 id="rfc.section.5">
+<a href="#rfc.section.5">5.</a> Publication of AS-Cones as IRR objects</h1>
+<p id="rfc.section.5.p.1">AS-Cones are very similar to AS-Set RPSL Objects, so they could also be published in IRR Databases as AS-Set objects.  Every ASN contained in an AS-Cone, and all the AS-Cones referenced should be considered as member: attributes.  The naming convention for AS-Cones (ASX:AS-Cone) should be maintained, in order to keep consistency between the two databases.  </p>
+<h1 id="rfc.section.6">
+<a href="#rfc.section.6">6.</a> Security Considerations</h1>
+<p id="rfc.section.6.p.1">TBW </p>
+<h1 id="rfc.section.7">
+<a href="#rfc.section.7">7.</a> IANA Considerations</h1>
+<p id="rfc.section.7.p.1">This memo includes no request to IANA.  </p>
+<h1 id="rfc.section.8">
+<a href="#rfc.section.8">8.</a> Contributors</h1>
+<p id="rfc.section.8.p.1">The following people contributed significantly to the content of the document:  Greg Skinner.  </p>
+<h1 id="rfc.section.9">
+<a href="#rfc.section.9">9.</a> Acknowledgments</h1>
+<p id="rfc.section.9.p.1">The authors would like to thank ...  </p>
+<h1 id="rfc.references">
+<a href="#rfc.references">10.</a> References</h1>
+<h1 id="rfc.references.1">
+<a href="#rfc.references.1">10.1.</a> Normative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="RFC2119">[RFC2119]</b></td>
+<td class="top">
+<a>Bradner, S.</a>, "<a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC4271">[RFC4271]</b></td>
+<td class="top">
+<a>Rekhter, Y.</a>, <a>Li, T.</a> and <a>S. Hares</a>, "<a href="https://tools.ietf.org/html/rfc4271">A Border Gateway Protocol 4 (BGP-4)</a>", RFC 4271, DOI 10.17487/RFC4271, January 2006.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8174">[RFC8174]</b></td>
+<td class="top">
+<a>Leiba, B.</a>, "<a href="https://tools.ietf.org/html/rfc8174">Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</a>", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.references.2">
+<a href="#rfc.references.2">10.2.</a> Informative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="RFC2622">[RFC2622]</b></td>
+<td class="top">
+<a>Alaettinoglu, C.</a>, <a>Villamizar, C.</a>, <a>Gerich, E.</a>, <a>Kessens, D.</a>, <a>Meyer, D.</a>, <a>Bates, T.</a>, <a>Karrenberg, D.</a> and <a>M. Terpstra</a>, "<a href="https://tools.ietf.org/html/rfc2622">Routing Policy Specification Language (RPSL)</a>", RFC 2622, DOI 10.17487/RFC2622, June 1999.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC6480">[RFC6480]</b></td>
+<td class="top">
+<a>Lepinski, M.</a> and <a>S. Kent</a>, "<a href="https://tools.ietf.org/html/rfc6480">An Infrastructure to Support Secure Internet Routing</a>", RFC 6480, DOI 10.17487/RFC6480, February 2012.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC6482">[RFC6482]</b></td>
+<td class="top">
+<a>Lepinski, M.</a>, <a>Kent, S.</a> and <a>D. Kong</a>, "<a href="https://tools.ietf.org/html/rfc6482">A Profile for Route Origin Authorizations (ROAs)</a>", RFC 6482, DOI 10.17487/RFC6482, February 2012.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC6488">[RFC6488]</b></td>
+<td class="top">
+<a>Lepinski, M.</a>, <a>Chi, A.</a> and <a>S. Kent</a>, "<a href="https://tools.ietf.org/html/rfc6488">Signed Object Template for the Resource Public Key Infrastructure (RPKI)</a>", RFC 6488, DOI 10.17487/RFC6488, February 2012.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
+<div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Job Snijders</span> 
+	  <span class="n hidden">
+		<span class="family-name">Snijders</span>
+	  </span>
+	</span>
+	<span class="org vcardline">NTT Communications</span>
+	<span class="adr">
+	  <span class="vcardline">Theodorus Majofskistraat 100</span>
+
+	  <span class="vcardline">
+		<span class="locality">Amsterdam</span>,  
+		<span class="region"></span>
+		<span class="code">1065 SZ</span>
+	  </span>
+	  <span class="country-name vcardline">The Netherlands</span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:job@ntt.net">job@ntt.net</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Massimiliano Stucchi</span> 
+	  <span class="n hidden">
+		<span class="family-name">Stucchi</span>
+	  </span>
+	</span>
+	<span class="org vcardline">RIPE NCC</span>
+	<span class="adr">
+	  <span class="vcardline">Stationsplein, 11</span>
+
+	  <span class="vcardline">
+		<span class="locality">Amsterdam</span>,  
+		<span class="region"></span>
+		<span class="code">1012 AB</span>
+	  </span>
+	  <span class="country-name vcardline">The Netherlands</span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:mstucchi@ripe.net">mstucchi@ripe.net</a></span>
+
+  </address>
+</div>
+
+</body>
+</html>
