@@ -46,17 +46,14 @@
         </author>
 
         <author fullname="Massimiliano Stucchi" initials="M." surname="Stucchi">
-            <organization>RIPE NCC</organization>
 
             <address>
                 <postal>
-                    <street>Stationsplein, 11</street>
-                    <code>1012 AB</code>
-                    <city>Amsterdam</city>
-                    <country>The Netherlands</country>
+                    <city>Zurich</city>
+                    <country>Switzerland</country>
                 </postal>
 
-                <email>mstucchi@ripe.net</email>
+                <email>max@stucchi.ch</email>
             </address>
         </author>
 
