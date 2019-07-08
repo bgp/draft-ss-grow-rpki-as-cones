@@ -216,7 +216,7 @@ END
 
             <t>
                 In order to validate a full AS-Cone, a network operator MUST have access to the validated cache of an RPKI validator software containing all the Policy definition and AS-Cone objects.
-                Validation occurs following the description in: <xref target="RFC6488" />.
+                Validation occurs following the description in <xref target="RFC6488" />:
             </t>
 
             <t>
