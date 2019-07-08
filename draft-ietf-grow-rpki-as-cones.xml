@@ -45,16 +45,11 @@
             </address>
         </author>
 
-        <author fullname="Massimiliano Stucchi" initials="M." surname="Stucchi">
-
-            <address>
-                <postal>
-                    <city>Zurich</city>
-                    <country>Switzerland</country>
-                </postal>
-
-                <email>max@stucchi.ch</email>
-            </address>
+	<author fullname="Massimiliano Stucchi" initials="M." surname="Stucchi">
+		<organization></organization>
+		<address>
+			<email>max@stucchi.ch</email>
+		</address>
         </author>
 
         <date />
@@ -108,7 +103,7 @@
             <section title="Policy definition object">
 
                 <t>
-                    A policy definition contains a list the upstream and peering relationships for a given Autonomous System that need an AS-Cone to be used for filtering.
+                    A policy definition contains a list of the upstream and peering relationships for a given Autonomous System that need an AS-Cone to be used for filtering.
                     For each relationship, an AS-Cone is referenced to indicate which BGP networks will be announced to the other end of the relationship.
                 </t>
 
