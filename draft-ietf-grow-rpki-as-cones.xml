@@ -119,7 +119,7 @@
                 These objects are stored in ASN.1 format and are digitally signed according to the same rules and conventions applied for RPKI ROA Objects (<xref target="RFC6482" />).
             </t>
 
-            <section title="Policy definition object">
+            <section title="Policy definition object" anchor="policyObj">
 
                 <t>
                     A policy definition contains a list of the upstream and peering relationships for a given Autonomous System that need an AS-Cone to be used for filtering.
@@ -239,12 +239,12 @@ END
             
             <t>
                 <list style="numbers" counter="validation_count">
-                    <t>For Every downstream ASN, the operator takes its policy definition file and collects a list of ASNs for the cone by looking at the following data, in exact order:
+                    <t>For every downstream ASN, the operator verifies if a related policy definition (see <xref target="policyObj" />) file exists. If no object exists, the status of the AS-Cone is "Unknown".  If instead it exists, it proceeds to collect a list of ASNs for the cone by looking at the following data, in exact order:
                         <list style="numbers" counter="validation_count">
                             <t>A policy for the specific relationship, in the form of ASX:ASY, where ASX is the downstream ASN, and ASY is the ASN of the operator validating the AS-Cone;</t>
                             <t>If there is no specific definition for the relationship, the ASX:Default policy;</t>
                         </list>
-                        If none of the two objects above exists, then the operator should only consider the ASN of its downstream to be added to the list.
+                        If none of the two definitions above exists, then the operator should only consider the ASN of its downstream to be added to the list.
                     </t>
                     <t>These objects can either point to:
                         <list style="numbers" counter="validating_count">
