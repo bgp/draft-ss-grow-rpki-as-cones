@@ -22,7 +22,7 @@
 
 <rfc category="info"
     ipr="trust200902"
-    docName="draft-ietf-grow-rpki-as-cones-01"
+    docName="draft-ietf-grow-rpki-as-cones-02"
     submissionType="IETF">
     
     <front>
@@ -51,6 +51,7 @@
 						<email>max@stucchi.ch</email>
 					</address>
 				</author>
+				
 				<author fullname="Melchior Aelmans" initials="M." surname="Aelmans">
 					<organization>Juniper Networks</organization>
 
