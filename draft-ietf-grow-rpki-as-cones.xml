@@ -87,18 +87,23 @@
         </note>
     </front>
     <middle>
-        <section title="Introduction">
-            <t>
-                The main goal of the Resource Public Key Infrastructure (RPKI) system <xref target="RFC6480" /> is to support improved security for the global routing system.
-                This is achieved through the use of information stored in a distributed repository system comprised of signed objects. A commonly used object type is the Route Object Authorisation (ROAs), which describe the prefixes originated by ASNs.
-            </t>
-            <t>
-                There is however no way for an operator to assert the routes for its customer networks, making it difficult to use the information carried by RPKI to create meaningful BGP-4 filters without relying on RPSL <xref target="RFC2622"/> as-sets.
-            </t>
-            <t>
-                This memo introduces a new attestation object, called an AS-Cone.
-                An AS-Cone is a digitally signed object with the goal to enable operators to define a set of customers that can be found as "right adjacencies", or transit customer networks, facilitating the construction of prefix filters for a given ASN, thus making routing more secure.
-            </t>
+			<section title="Introduction">
+				<t>
+					The main goal of the Resource Public Key Infrastructure (RPKI) system <xref target="RFC6480" /> is to support improved security for the global routing system.
+						This is achieved through the use of information stored in a distributed repository system comprised of signed objects. A commonly used object type is the Route Object Authorisation (ROAs), which describe the prefixes originated by ASNs.
+				</t>
+				<t>
+					There is however no way for an operator to assert the routes for its customer networks, making it difficult to use the information carried by RPKI to create meaningful BGP-4 filters without relying on RPSL <xref target="RFC2622"/> as-sets.
+				</t>
+				<t>
+					This memo introduces a new attestation object, called an AS-Cone.
+					An AS-Cone is a digitally signed object with the goal to enable operators to define a set of customers that can be found as "right adjacencies", or transit customer networks, facilitating the construction of prefix filters for a given ASN, thus making routing more secure.
+				</t>
+				<t>
+					The goal of AS-Cones is to be able to recursively define all the originating ASNs that define the customer base of a given ASN, including all the transit relationships.
+					This means that through AS-Cones, it is possible to create a graph of all the neighbour relationships for the customers of a given ASN.
+				</t>
+
         </section>
         <section title="Format of AS-Cone objects">
             <t>
@@ -222,11 +227,6 @@ END
 
 
         <section title="Validating an AS-Cone">
-
-            <t>
-                The goal of AS-Cones is to be able to recursively define all the originating ASNs that define the customer base of a given ASN, including all the transit relationships.
-                This means that through AS-Cones, it is possible to create a graph of all the neighbour relationships for the customers of a given ASN.
-            </t>
 
             <t>
                 In order to validate a full AS-Cone, a network operator MUST have access to the validated cache of an RPKI validator software containing all the Policy definition and AS-Cone objects.
