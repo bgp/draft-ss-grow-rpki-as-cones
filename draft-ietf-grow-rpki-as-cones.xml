@@ -101,7 +101,7 @@
 				</t>
 				<t>
 					The goal of AS-Cones is to be able to recursively define all the originating ASNs that define the customer base of a given ASN, including all the transit relationships.
-					This means that through AS-Cones, it is possible to create a graph of all the neighbour relationships for the customers of a given ASN.
+					This means that through AS-Cones, it is possible to create a tree of all the neighbour relationships for the customers of a given ASN.
 				</t>
 
         </section>
