@@ -130,6 +130,9 @@
 									The default behaviour for a neighbour, if the relationship is not explicitly described in the policy, is to only accept the networks originated by the ASN.
 									This means that a stub ASN neither has to set up any AS-Cone, description, nor policy.
                 </t>
+								<t>
+									The Policy Definition object contains a field called "ContactEmail" containing the E-Mail address for which all the communication related to this policy definition should be sent to.
+								</t>
 
                 <t>
 									Only one AS-Cone or Autonomous System Number can be supplied for a given relationship.  If more than one AS-Cone needs to be announced in the relationship, then it is mandatory to create a third AS-Cone that includes those two.  If more than one ASN needs to be referenced, then an AS-Cone for the relationship needs to be created.
@@ -153,11 +156,11 @@ Neighbour ::= SEQUENCE
     ASN INTEGER (1..42949672965),
     ASCone  VisibleString
 }
-
+												<
 Version ::= INTEGER
 LastModified ::= GeneralizedTime
 Created ::= GeneralizedTime
-ContactEmail ::= PrintableString(SIZE (1..50))
+ContactEmail ::= PrintableString(SIZE (1..75))
 END
                             ]]>
                         </artwork>
@@ -185,15 +188,42 @@ END
                     An AS-Cone contains a list of the downstream customer ASNs and AS-Cones of a given ASN.
                     The list is used to create filter lists by the networks providing transit to or having a peering relationship with the ASN.
                 </t>
+								<t>
+									An AS-Cone can reference another AS-Cone.
+								</t>
 
-                <t>
-                    An AS-Cone can reference another AS-Cone if a customer of the operator also has defined an AS-Cone to be announced upstream.
-                </t>
+								<section title="Adding entries in an AS-Cone object">
+									<t>
+										When an entry is added, it is in the Unverified status, and its "Verified" variable is set to 0.
+									</t>
+								
+									<t>
+									If an ASN is added as an entry, it becomes directly visible and usable in building prefix lists, and a notification is sent to the E-mail address contained in the "ContactEmail" field of the AS-Cone Policy Object for that Autonomous System Number.  The holder of the Autonomous System Number can acknowledge the notification, in which case the "Verified" field is switched to the value of 1.
+									</t>
+									<t>
+									If an AS-Cone is added to the object, a notification is sent to the E-Mail address contained in the "ContactEmail" field of the AS-Cone object that is being added.  If the "ContactEmail" field is blank, the notification is sent to the E-mail address contained in the "ContactEmail" field of the AS-Cone Policy Object of the ASN of which the AS-Cone is part of.  Only when an acknowledgement from the holder of the object is obtained, the "Verified" field is changed to a value of 1, and the AS-Cone becomes visible.
+									</t>
 
+									<t>
+										The value of the "Verified" field is fundamental for the creation of appropriate prefix filtering rules as described later.
+									</t>
+								</section>
+
+								<section title="Removal of entries from an AS-Cone object">
+									<t>
+										The owner of an AS-Cone can arbitrarily remove any entry from its object without requesting any permission from the holders of the entries being removed.
+									</t>
+									<t>
+										The holder of an entry in a third party AS-Cone can remove the entry by performing authentication based on the E-mail address contained in the "ContactEmail" field of the resource itself.  The RIRs MUST provide means to perform this authentication via an auth code, an API, or other means.  The removal of an entry SHOULD be immediate upon successful authentication.
+									</t>
+								</section>
+
+								</section>
                 <section title="Naming convention for AS-Cone objects">
                     <t>
                         AS-Cones MUST have a unique name for the ASN they belong to.  Names are composed of ASCII strings up to 255 characters long and cannot contain spaces.
-                    </t>
+										</t>
+
                     <t>
                         In order for AS-Cones to be unique in the global routing system, their string name is preceded by the AS number of the ASN they are part of, followed by ":".
                         For example, AS-Cone "EuropeanCustomers" for ASN 65530 is represented as "AS65530:EuropeanCustomers" when referenced from a third party.
@@ -210,14 +240,14 @@ Entities ::= SEQUENCE OF Entity
 Entity CHOICE
 {
     ASN INTEGER (1..4294967295),
-    OtherASCone VisibleString
+		OtherASCone VisibleString
+		Verified ::= BOOLEAN
 }
 
 Version ::= INTEGER
 LastModified ::= GeneralizedTime
 Created ::= GeneralizedTime
-Verified ::= BOOLEAN
-ContactEmail ::= PrintableString(SIZE (1..50))
+ContactEmail ::= PrintableString(SIZE (1..75))
 END
                             ]]>
                         </artwork>
