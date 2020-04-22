@@ -307,8 +307,8 @@ END
 						AS-Cones can be validated in 4 different ways:
 						<ul>
 							<li>Loose Validation.  This is the method described in the procedure above;</li>
-							<li>Middle Validation.  This is similar to Loose validation, but it discards all the ASNs for which the "Validated" fields have a value of 0.  The intent is to remove from the prefix list all the ASNs that haven't validated their entry in the customer cone for the operator;</li>
-							<li>Almost-strict validation.  In this method, whenever an entry with the "Validated" field set to 0 is found, the entire sub-tree (the AS-Cone) in which it is contained is discarded.</li>
+							<li>Opportunistic Validation.  This is similar to Loose validation, but it discards all the ASNs for which the "Validated" fields have a value of 0.  The intent is to remove from the prefix list all the ASNs that haven't validated their entry in the customer cone for the operator;</li>
+							<li>Almost-Strict validation.  In this method, whenever an entry with the "Validated" field set to 0 is found, the entire sub-tree (the AS-Cone) in which it is contained is discarded.</li>
 							<li>Strict Validation.  In this method, only the entries with the "Validated" field set to 1 are considered.  If even a single entry has a "Validated" field set to 0, the whole AS-Cone is discarded.</li>
 						</ul>
 						<t>
