@@ -211,7 +211,7 @@ END
 
 				<section title="Removal of entries from an AS-Cone object">
 					<t>
-						The owner of an AS-Cone can arbitrarily remove any entry from its object without requesting any permission from the holders of the entries being removed.
+						The owner of an AS-Cone can remove any entry from its object without requesting any permission from the holders of the entries being removed.
 					</t>
 					<t>
 						The holder of an entry in a third party AS-Cone can remove the entry by performing authentication based on the E-mail address contained in the "ContactEmail" field of the resource itself.  The RIRs MUST provide means to perform this authentication via an auth code, an API, or other means.  The removal of an entry SHOULD be immediate upon successful authentication.
@@ -305,12 +305,13 @@ END
 				<section title="Types of validation for AS-Cones">
 					<t>
 						AS-Cones can be validated in 4 different ways:
-						<ul>
-							<li>Loose Validation.  This is the method described in the procedure above;</li>
-							<li>Opportunistic Validation.  This is similar to Loose validation, but it discards all the ASNs for which the "Validated" fields have a value of 0.  The intent is to remove from the prefix list all the ASNs that haven't validated their entry in the customer cone for the operator;</li>
-							<li>Almost-Strict validation.  In this method, whenever an entry with the "Validated" field set to 0 is found, the entire sub-tree (the AS-Cone) in which it is contained is discarded.</li>
-							<li>Strict Validation.  In this method, only the entries with the "Validated" field set to 1 are considered.  If even a single entry has a "Validated" field set to 0, the whole AS-Cone is discarded.</li>
-						</ul>
+						<list>
+							<t>Loose Validation.  This is the method described in the procedure above;</t>
+							<t>Opportunistic Validation.  This is similar to Loose validation, but it discards all the ASNs for which the "Validated" fields have a value of 0.  The intent is to remove from the prefix list all the ASNs that haven't validated their entry in the customer cone for the operator;</t>
+							<t>Almost-Strict validation.  In this method, whenever an entry with the "Validated" field set to 0 is found, the entire sub-tree (the AS-Cone) in which it is contained is discarded.</t>
+							<t>Strict Validation.  In this method, only the entries with the "Validated" field set to 1 are considered.  If even a single entry has a "Validated" field set to 0, the whole AS-Cone is discarded.</t>
+						</list>
+					</t>
 						<t>
 							It is important to note that no AS-Cone with the "Validated" field set to 0 is going to be visible at any time, so they are automatically discarded.  This protects AS-Cone holders from being considered customers of a third party without their consent.
 						</t>
