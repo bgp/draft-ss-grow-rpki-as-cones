@@ -1,7 +1,7 @@
 
 BASENAME=draft-ietf-grow-rpki-as-cones
 EXT=.xml
-VERSION=02
+VERSION=03
 SOURCENAME=${BASENAME}${EXT}
 DRAFTNAME=${BASENAME}-${VERSION}
 
