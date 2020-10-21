@@ -78,7 +78,7 @@
 		<t>
 				This document describes a way to define groups of Autonomous System numbers in RPKI <xref target="RFC6480" />.
 					We call them AS-Cones.
-					AS-Cones provide a mechanism to be used by operators for filtering BGP-4 <xref target="RFC4271" /> announcements.
+					AS-Cones provide a mechanism to be used by operators for filtering BGP-4 <xref target="RFC4271" /> announcements based on a set of RPKI signed objects similar in concept to the RPSL <xref target="RFC4012" /> AS-Sets. 
 				</t>
 			</abstract>
 			<note title="Requirements Language">
@@ -361,6 +361,7 @@ END
 			<back>
 				<references title="Normative References">
 					<?rfc include="reference.RFC.2119"?>
+					<?rfc include="reference.RFC.4012"?>
 					<?rfc include="reference.RFC.4271"?>
 					<?rfc include="reference.RFC.8174"?>
 				</references>
