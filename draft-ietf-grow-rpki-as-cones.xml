@@ -122,6 +122,29 @@
 				</t>
 
 				<section title="Policy definition object" anchor="policyObj">
+					
+					<section title="ASN.1 format of a Policy Definition object">
+						<figure title="ASN.1 format of a Policy definition object">
+							<artwork><![CDATA[
+ASNPolicy DEFINITIONS ::=
+BEGIN
+Neighbours ::= SEQUENCE OF Neighbour
+
+Neighbour ::= SEQUENCE 
+{
+ASN INTEGER (1..42949672965),
+ASCone  VisibleString
+}
+
+Version ::= INTEGER
+LastModified ::= GeneralizedTime
+Created ::= GeneralizedTime
+ContactEmail ::= PrintableString(SIZE (1..75))
+END
+]]>
+						</artwork>
+					</figure>
+				</section>
 
 					<t>
 						A policy definition object contains a list of the upstream and peering relationships for a given Autonomous System that may wish to use an AS-Cone for filtering.
@@ -146,28 +169,6 @@
 						</t>
 					</section>
 
-					<section title="ASN.1 format of a Policy Definition object">
-						<figure title="ASN.1 format of a Policy definition object">
-							<artwork><![CDATA[
-ASNPolicy DEFINITIONS ::=
-BEGIN
-Neighbours ::= SEQUENCE OF Neighbour
-
-Neighbour ::= SEQUENCE 
-{
-ASN INTEGER (1..42949672965),
-ASCone  VisibleString
-}
-
-Version ::= INTEGER
-LastModified ::= GeneralizedTime
-Created ::= GeneralizedTime
-ContactEmail ::= PrintableString(SIZE (1..75))
-END
-]]>
-						</artwork>
-					</figure>
-				</section>
 
 				<section title="Naming convention for neighbour relationships">
 					<t>
