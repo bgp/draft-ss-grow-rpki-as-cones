@@ -106,8 +106,9 @@
 				</t>
 
 			</section>
-			<section title="Format of AS-Cone objects">
+			<section title="AS-Cone objects format">
 				<t>
+					AS-Cone and Policy Definition objects use of the CMS object format defined in <xref target="RFC6488" />. 
 					AS-Cones are composed of two types of distinct objects:
 				</t>
 				<t><list style="symbols">
@@ -123,7 +124,7 @@
 				<section title="Policy definition object" anchor="policyObj">
 
 					<t>
-						A policy definition object contains a list of the upstream and peering relationships for a given Autonomous System that need an AS-Cone to be used for filtering.
+						A policy definition object contains a list of the upstream and peering relationships for a given Autonomous System that may wish to use an AS-Cone for filtering.
 						For each relationship, either an AS-Cone or a plain Autonomous System Number is referenced to indicate which networks will be announced to the other end of the relationship using BGP.
 					</t>
 
